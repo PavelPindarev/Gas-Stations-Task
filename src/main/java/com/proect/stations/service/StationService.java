@@ -4,6 +4,7 @@ import com.proect.stations.dto.payload.JsonParseDTO;
 import com.proect.stations.dto.payload.StationDTO;
 import com.proect.stations.dto.response.FuelInfoDTO;
 import com.proect.stations.exception.InvalidFuelTypeException;
+import com.proect.stations.exception.StationNotFoundException;
 import com.proect.stations.model.entity.StationEntity;
 import com.proect.stations.model.enums.FuelType;
 import com.proect.stations.repository.StationRepository;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Transactional
 @Service
@@ -70,5 +72,16 @@ public class StationService {
             double middleValue2 = fuelPrices.get(middleIndex2);
             return (middleValue1 + middleValue2) / 2.0;
         }
+    }
+
+    public List<StationDTO> getStationsByName(String stationName) {
+        List<StationDTO> collected = stationRepository.findAllByName(stationName)
+                .stream()
+                .map(s -> modelMapper.map(s, StationDTO.class))
+                .toList();
+        if (collected.isEmpty()) {
+            throw new StationNotFoundException();
+        }
+        return collected;
     }
 }

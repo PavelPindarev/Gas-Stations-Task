@@ -19,4 +19,6 @@ public interface StationRepository extends JpaRepository<StationEntity, UUID> {
 
     @Query("select s.diesel from StationEntity s")
     List<Double> findAllDiesel();
+
+    List<StationEntity> findAllByName(String stationName);
 }

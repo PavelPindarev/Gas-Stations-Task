@@ -1,18 +1,17 @@
 package com.proect.stations.api.v1;
 
 import com.proect.stations.dto.payload.RequestObject;
+import com.proect.stations.dto.payload.StationDTO;
 import com.proect.stations.dto.response.FuelInfoDTO;
 import com.proect.stations.dto.response.ResponseDTO;
 import com.proect.stations.model.enums.FuelType;
 import com.proect.stations.service.StationService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Arrays;
+import java.util.List;
 
 import static com.proect.stations.config.AppConstants.API_BASE;
 
@@ -50,6 +49,20 @@ public class StationController {
                         .message("Successfully get info about fuel prices")
                         .status(HttpStatus.OK.value())
                         .content(fuelInfoDTO)
+                        .build()
+        );
+    }
+
+    @GetMapping("/search/{stationName}")
+    public ResponseEntity<ResponseDTO<Object>> getStationsByName(@PathVariable(value = "stationName") String stationName) {
+        List<StationDTO> stationsByName = stationService.getStationsByName(stationName);
+
+        return ResponseEntity.ok(
+                ResponseDTO
+                        .builder()
+                        .message("Successfully get all gas stations by name")
+                        .status(HttpStatus.OK.value())
+                        .content(stationsByName)
                         .build()
         );
     }
