@@ -15,6 +15,7 @@ com\proect\stations\dto\payload\RequestObject.class
 com\proect\stations\dto\payload\StationDTO$StationDTOBuilder.class
 com\proect\stations\dto\payload\JsonParseDTO$JsonParseDTOBuilder.class
 com\proect\stations\model\entity\StationEntity$StationEntityBuilder.class
+com\proect\stations\config\OpenAPIConfig.class
 com\proect\stations\config\BeanConfig.class
 com\proect\stations\repository\StationRepository.class
 com\proect\stations\exception\handler\GlobalExceptionHandler.class
